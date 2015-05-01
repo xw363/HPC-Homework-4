@@ -9,3 +9,6 @@ Enter `./convolution image N` where `image` is a PPM image `N` is the number of 
 
 ## Answer to questions
 See `Answer.txt`.
+
+## Blurred images
+Check out the original and blurred images in the "images" folder. The images blurred by OpenCL are named `output_cl_N.ppm` where `N` is the number of times that the blurring kernal is applied.
