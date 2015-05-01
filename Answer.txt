@@ -1,0 +1,69 @@
+(a) Performance of the program compiled from the given source code:
+
+- My laptop (with Nvidia GeForce GT 750M):
+
+    391.124810 MPixels/s
+    3.128998 GBit/s
+    19.006919 GFlop/s
+
+- opencl1 (AMD Cypress chosen):
+
+    265.485549 MPixels/s
+    2.123884 GBit/s
+    12.901412 GFlop/s
+
+- cuda1 (Nvidia GeForce GTX TITAN Black chosen):
+
+    2612.788799 MPixels/s
+    20.902310 GBit/s
+    126.969869 GFlop/s
+
+Performance of the program after changing the local work group size to 32 * 32:
+
+- My laptop:
+
+    374.301426 MPixels/s
+    2.994411 GBit/s
+    18.189378 GFlop/s
+
+- opencl1:
+
+    Aborted (core dumped)
+
+- cuda1:
+    2636.850382 MPixels/s
+    21.094803 GBit/s
+    128.139155 GFlop/s
+
+The performance did not improve with larger work group size (and the program
+would even fail on certain devices). However, smaller work group size does
+make performance worse. Setting the size to 8*8:
+
+- My laptop:
+
+    239.266919 MPixels/s
+    1.914135 GBit/s
+    11.627304 GFlop/s
+
+- opencl1:
+
+    198.754860 MPixels/s
+    1.590039 GBit/s
+    9.658599 GFlop/s
+
+- cuda1:
+
+    1645.749430 MPixels/s
+    13.165995 GBit/s
+    79.976074 GFlop/s
+
+(b) I added a few lines that calls clEnqueueCopyBuffer() or
+clEnqueueCopyBufferRect() inside the loop that runs the blurring kernel. Now
+data in the output buffer are copied to the input buffer in each loop after
+the blurring kernel is applied.
+
+I also added lines in convolution.c and convolution.cl to keep pixel values
+in the closed interval [0, 255].
+
+The code blocks following comments that start with "Edit" are that part that I
+edited.
